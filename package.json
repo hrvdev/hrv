@@ -1,0 +1,14 @@
+{
+  "name": "hrv-server",
+  "version": "0.1.0",
+  "dependencies": {
+    "sqlite3": "~2.2.3",
+    "express": "~3.5.2"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-watch": "~0.6.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "~0.4.0"
+  }
+}
