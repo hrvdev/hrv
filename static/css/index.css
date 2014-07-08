@@ -10,5 +10,82 @@ body{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: black;
+  background-color: rgb(0, 65, 36);
+}
+
+.search-bar{
+  border:1px solid transparent;
+  border-right: 0;
+  border-radius: 2px 0 0 2px;
+  outline: none;
+  vertical-align: top;
+
+  background-color: #f6f6f6;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.3);
+  
+  box-sizing: border-box;
+  height: 32px;
+  width: 300px;
+  padding: 0 7px;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+}
+.search-bar.focus{
+  border-color: #4d90fe;
+  margin-left: -1px;
+  width: 301px;
+}
+
+.search-bar input{
+  box-sizing: border-box;
+  
+  padding: 0 6px;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  top: 5px;
+  height: 20px;
+  line-height: 20px;
+
+  font-size: 15px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.search-bar button{
+  background-color: #4d90fe;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+  border: 0;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  height: 32px;
+  left: 299px;
+  text-align: center;
+  top: -1px;
+  vertical-align: top;
+  width: 72px;
+  position: absolute;
+  text-indent: -9999em;
+}
+.search-bar button:hover{
+  background-color: #357ae8;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
+}
+.search-bar button:focus{
+  border: 1px solid transparent;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.5);
+  outline: none;
+}
+.search-bar::after{
+  content: "";
+  display: block;
+  height: 17px;
+  margin: 0 auto;
+  width: 17px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAABVUlEQVRYw+2YQRGEMAxFkVAJlYAEJCABCUhAQiWshJWABCRUAg7+XsrMTkibNDBdDvtnek0fSfqToQPQPeE8AuK5IDkBGAC8AESctQEIAHxXKTUIgB7ACr0CAHcrCIAJNm0A+ltALkAc2jWlKoKkcnCKCdCR0i3p4lNmroJwPRGEgC6VhGo2gaTXUQUhwEQryKsmUOaZU40WEOoTk8Eb3iTGYgGhcgaQmcRYL4N0BjHl+RnIeDuI1iFJ8EBivC0gm7bRCsGj1ktKIIGx6pohNjNZ9RYQnxliTgHRM1a/XrH4kIEZhEzstT0mgeTmBpJZzemJjgk65naTO9aAPvOFtavAWMqKdjHyhcxIW9quGRVVO2uh/lTr8fWMqbEw1cvzV/AlXXico2c884IgwZhADMY2STBNQDQwzUAkmKYgAoxvClKAGZqDMDBb89IwRjlI0/f/W+ID3tQLQPib2qQAAAAASUVORK5CYII=);
+  background-size: 17px;
+  position: absolute;
+  right: -44px;
+  top: 6px;
 }
