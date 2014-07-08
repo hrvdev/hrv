@@ -109,6 +109,8 @@ body{
   border: 2px solid #fff;
   background-color: #cdcdcd;
 
+  -webkit-user-select: none;
+
   -webkit-transition: all 0.1s linear;
 }
 .mini-map.open{
@@ -143,6 +145,7 @@ body{
 .map-tools{
   float: right;
   margin-right: 30px;
+  -webkit-user-select: none;
 }
 .map-tool{
   height: 26px;
@@ -184,18 +187,24 @@ body{
 }
 .location-images-toggle{
   float: right;
+  width: 140px;
   margin-right: 30px;
   padding: 5px 7px;
   background-color: #222;
   border: 1px solid #000;
   border-radius: 2px;
 }
+.location-images-toggle.open{
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
+  margin-bottom: -1px;
+}
 .location-images-toggle img{
   float: left;
 }
 .location-images-toggle .arrow{
   float: right;
-  width: 50px;
+  width: 45px;
   height: 25px;
   
 }
@@ -227,6 +236,48 @@ body{
 
 .tools.open .location-images-w{
   height: 140px;
-  background-color: #222;
+  background-color: rgba(34, 34, 34, 0.95);
+
   border-top: 1px solid #000;
+}
+.location-images-container{
+  margin-left: 140px;
+  height: 114px;
+  margin-top: 20px;
+  display: none;
+  overflow-x: scroll;
+}
+.location-images-container::-webkit-scrollbar{
+  height: 7px;
+}
+.location-images-container::-webkit-scrollbar-thumb{
+  background-color: #4d4d4d;
+}
+.location-images-container::-webkit-scrollbar-thumb:hover{
+  background-color: #6d6d6d;
+}
+.location-image{
+  float: left;
+  width: 200px;
+  margin-right: 3px;
+  position: relative;
+}
+.location-image:last-child{
+  margin-right: 0px;
+}
+.location-image img{
+  display: block;
+  height: 100px;
+  width: 200px;
+}
+.location-image div{
+  position: absolute;
+  bottom: 0px;
+  width: 200px;
+  font-size: 13px;
+  color: white;
+  line-height: 20px;
+  padding: 0 10px;
+  background-image: -webkit-linear-gradient(top,rgba(255, 255, 255, 0),rgba(0, 0, 0, 0.35));
+  box-sizing: border-box;
 }

@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8"/>
   <title>HRV</title>
+  <link rel="stylesheet" href="lib/Cesium/Widgets/widgets.css">
+  <style>
+  .cesium-widget-credits{display: none;}
+  </style>
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -11,7 +15,7 @@
   <!-- /cesium 球容器 -->
 
   <!-- canvas -->
-  <canvas class="cesium"></canvas>
+  <!-- <canvas class="cesium"></canvas> -->
   <!-- /canvas -->
 
   
@@ -44,8 +48,7 @@
         <div class="arrow"><span></span></div>
       </div>
       <div class="location-images-w">
-        <div class="location-images-container">
-
+        <div class="location-images-container" id="locationImagesContainer">
         </div>
       </div>
     </div>
@@ -53,6 +56,46 @@
   <!-- /底部工具 -->
 
   <script src="lib/Cesium/Cesium.js"></script>
+
+  <script>
+  var getTheMapLevel = 0;
+  var websource = false;
+  var options;
+  if(websource){
+      options = {
+      fullscreenButton: true,
+      geocoder: false,
+      homeButton: false,
+      inforBox: false,
+      timeline: true,
+      fullscreenElement: document.body,
+      sceneMode: Cesium.SceneMode.SCENE3D
+    }
+  }else{
+    options = {
+      infoBox: false,
+      sceneModePicker: false,
+      animation: false,
+      selectionIndicator: false,
+      fullscreenButton: false,
+      geocoder: false,
+      homeButton: false,
+      inforBox: false,
+      timeline: false,
+      fullscreenElement: document.body,
+      baseLayerPicker: false,
+      // imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+      //   url: 'http://192.168.1.252:8102/map/google/',
+      //   maximumLevel: '20',
+      //   credit: ''
+      // }),
+      sceneMode: Cesium.SceneMode.SCENE3D
+    }
+  }
+  
+  var cesiumViewer = new Cesium.Viewer('cesiumContainer',options);
+  </script>
+
   <script src="lib/jquery/jquery.2.1.1.min.js"></script>
   <script src="js/cesium.js"></script>
   <script src="js/ui.js"></script>
