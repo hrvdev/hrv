@@ -2,7 +2,6 @@
 
 var cesium = {};
 
-
 ;(function(){
 
   function someFunction(){
@@ -17,6 +16,7 @@ var cesium = {};
   };
 
 })();
+
 
 
   win.selfCesium = cesium;

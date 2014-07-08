@@ -6,7 +6,6 @@ module.exports = function(grunt){
       cesium: {
         src: [
           'static/js/cesium/intro.js',
-          'static/js/cesium/utils.js',
           'static/js/cesium/*.js',
           'static/js/cesium/outro.js'
         ],
