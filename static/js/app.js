@@ -1,6 +1,6 @@
 ;(function(){
 
-  var app = new CesiumUI(selfCesium);
+  var app = new CesiumUI();
 
 
   app.run();

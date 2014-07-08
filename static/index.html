@@ -10,6 +10,10 @@
   <div class="cesium" id="cesiumContainer"></div>
   <!-- /cesium 球容器 -->
 
+  <!-- canvas -->
+  <canvas class="cesium"></canvas>
+  <!-- /canvas -->
+
   
   <!-- 搜索框 -->
   <div class="search-bar">
@@ -28,8 +32,23 @@
 
 
   <!-- 底部工具 -->
-  <div class="tools">
-    
+  <div class="tools" id="tools">
+    <div class="map-tools">
+      <div class="map-tool map-tool-location"><span class="icon"></span></div>
+      <div class="map-tool map-tool-measure"><span class="icon"></span></div>
+      <div class="map-tool map-tool-settings"><span class="icon"></span></div>
+    </div>
+    <div class="location-images">
+      <div class="location-images-toggle clearfix" id="toggleLocationImagesBtn">
+        <img src="imgs/expand.png" height="25" alt="">
+        <div class="arrow"><span></span></div>
+      </div>
+      <div class="location-images-w">
+        <div class="location-images-container">
+
+        </div>
+      </div>
+    </div>
   </div>
   <!-- /底部工具 -->
 

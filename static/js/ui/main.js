@@ -1,14 +1,18 @@
 var MainUI = function(cesium){
   this.cesium = cesium;
+
+  this.miniMap = new MiniMap();
+  this.tools = new Tools(this.miniMap);
 };
 
 MainUI.prototype = {
   run: function(){
     var that = this;
-    console.log('ui run');
 
-    setTimeout(function(){
-      that.cesium.someAPI();
-    }, 1000);
+    // setTimeout(function(){
+    //   that.miniMap.goToLarge();
+    //   that.tools.showLocationImages();
+    // }, 1000);
+    
   }
 };
