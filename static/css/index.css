@@ -142,11 +142,13 @@ body{
   bottom: 0;
   left: 0;
   right: 0;
+  pointer-events: none;
 }
 .map-tools{
   float: right;
   margin-right: 30px;
   -webkit-user-select: none;
+  pointer-events: all;
 }
 .map-tool{
   height: 26px;
@@ -194,6 +196,7 @@ body{
   background-color: #222;
   border: 1px solid #000;
   border-radius: 2px;
+  pointer-events: all;
 }
 .location-images-toggle.open{
   border-bottom: none;
@@ -233,6 +236,7 @@ body{
   clear: both;
   height: 20px;
   -webkit-transition: all linear 0.1s;
+  pointer-events: all;
 }
 
 .tools.open .location-images-w{
