@@ -13,8 +13,9 @@ body{
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
 }
-.cesium-canvas{
+.cesium-canvas, .cesium-canvas-w{
   pointer-events: none;
 }
 .search-bar{
