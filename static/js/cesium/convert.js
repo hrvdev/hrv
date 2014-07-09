@@ -2,11 +2,15 @@
 
   cesium.convert = {
     ddTodms: function(dd){
-      var deg = dd | 0; // truncate dd to get degrees
-      var frac = Math.abs(dd - deg); // get fractional part
-      var min = (frac * 60) | 0; // multiply fraction by 60 and truncate
+      // truncate dd to get degrees
+      var deg = parseInt(dd);
+      // get fractional part 
+      var frac = Math.abs(deg -dd); 
+      // multiply fraction by 60 and truncate
+      var min = (frac * 60); 
       var sec = (frac * 3600 - min * 60).toFixed(4);
-      return deg + "°" + min + "' " + sec + "\"";
+      var dmsString = deg + "°" + min + "' " + sec + "\"";
+      return dmsString;
     },
     dmsTodd:function(dms){
       var ary = dms.split('.');
@@ -38,5 +42,4 @@
       }
     }
   };
-
 })();

@@ -1,14 +1,10 @@
 (function(){
   var pos={
-    start:{
-    
-    },
-    end:{
-
-    }
-  }
+    start:{},
+    end:{}
+  };
   var ellipsoid = Cesium.Ellipsoid.WGS84;
-  var scene = cesiumViewer.cesiumWidget.scene;
+  var scene = cesiumViewer.scene;
   var firstPosflag = true;
   $(".map-tool-measure").click(function(e){
     var handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
@@ -24,6 +20,7 @@
           else{
             pos.end = cartographic;
             var s = cesium.measureDistence(pos);
+            var posi = cesium.getPosition()
             console.log(s)
             firstPosflag = true;
             handler.destroy();
