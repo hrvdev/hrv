@@ -7,8 +7,9 @@
       // get fractional part 
       var frac = Math.abs(deg -dd); 
       // multiply fraction by 60 and truncate
-      var min = (frac * 60); 
-      var sec = (frac * 3600 - min * 60).toFixed(4);
+      var min_float = (frac * 60);
+      var min = parseInt(min_float); 
+      var sec = (Math.abs(min_float - min)*60).toFixed(4);
       var dmsString = deg + "°" + min + "' " + sec + "\"";
       return dmsString;
     },
