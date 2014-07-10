@@ -28,11 +28,13 @@ MainUI.prototype = {
         var cartesian = scene.camera.pickEllipsoid(movement.position, ellipsoid);
         if(cartesian) {
           selfCanvas.showCircleAt(movement.position);
+          var pos = selfCesium.getPosition(win.cesiumViewer, movement.position);
+
           that.locationShower.show({
-            lat: 10.34,
-            lng: 202.123,
-            lat2: '12 234\' 23\'\'',
-            lng2: '202 234\' 23\'\''
+            lat: pos.ddLat,
+            lng: pos.ddLong,
+            lat2: pos.dmsLat,
+            lng2: pos.dmsLong
           });
         }
       }
