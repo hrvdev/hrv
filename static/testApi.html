@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>HRV</title>
+  <link rel="stylesheet" href="lib/Cesium/Widgets/widgets.css">
+  <style>
+  .cesium-widget-credits{display: none;}
+  </style>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <!-- cesium 球容器 -->
+  <div class="cesium" id="cesiumContainer"></div>
+  <!-- /cesium 球容器 -->
+
+  <!-- canvas -->
+  <div class="cesium cesium-canvas-w">
+    <canvas class="cesium cesium-canvas" id="canvas" width="5000" height="3000"></canvas>
+  </div>
+  <!-- /canvas -->
+
+  
+  <!-- 搜索框 -->
+  <div class="search-bar">
+    <input type="text" name="q" id="searchInput" />
+    <button id="searchButton">搜索</button>
+  </div>
+  <!-- /搜索框 -->
+
+
+  <!-- 显示经纬度 -->
+  <div class="location-show" id="locationShow">
+    <div class="location-icon">
+    </div>
+    <div class="location-lat-lng" id="locationShowC">
+      <div><span>经度: </span><span>12.334</span><span>(12 34' 34'')</span></div>
+      <div><span>纬度: </span><span>12.334</span><span>(12 34' 34'')</span></div>
+    </div>
+    <div class="location-spliter"></div>
+    <div class="location-close">
+      <span id="locationShowClose"></span>
+    </div>
+  </div>
+  <!-- /显示经纬度 -->
+
+  
+  <!-- 小地图 -->
+  <div class="mini-map" id="miniMap">
+    <div class="mini-map-mask" id="miniMapSource">Google</div>
+    <div class="mini-map-canvas" id="miniMapCanvas"></div>
+  </div>
+  <!-- /小地图 -->
+
+
+  <!-- 底部工具 -->
+  <div class="tools" id="tools">
+    <div class="map-tools">
+      <div class="map-tool map-tool-location"><span class="icon"></span></div>
+      <div class="map-tool map-tool-measure"><span class="icon"></span></div>
+      <div class="map-tool map-tool-settings"><span class="icon"></span></div>
+    </div>
+    <div class="location-images">
+      <div class="location-images-toggle clearfix" id="toggleLocationImagesBtn">
+        <img src="imgs/expand.png" height="25" alt="">
+        <div class="arrow"><span></span></div>
+      </div>
+      <div class="location-images-w">
+        <div class="location-images-container" id="locationImagesContainer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /底部工具 -->
+
+  <script src="lib/Cesium/Cesium.js"></script>
+  
+  <script>
+  var getTheMapLevel = 0;
+  var websource = false;
+  var options;
+  if(websource){
+      options = {
+      fullscreenButton: true,
+      geocoder: false,
+      homeButton: false,
+      inforBox: false,
+      timeline: true,
+      fullscreenElement: document.body,
+      sceneMode: Cesium.SceneMode.SCENE3D
+    }
+  }else{
+    options = {
+      infoBox: false,
+      sceneModePicker: false,
+      animation: false,
+      selectionIndicator: false,
+      fullscreenButton: false,
+      geocoder: false,
+      homeButton: false,
+      inforBox: false,
+      timeline: false,
+      fullscreenElement: document.body,
+      baseLayerPicker: false,
+      // imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+      //   url: 'http://192.168.1.252:8102/map/google/',
+      //   maximumLevel: '20',
+      //   credit: ''
+      // }),
+      sceneMode: Cesium.SceneMode.SCENE3D
+    }
+  }
+  
+  var cesiumViewer = new Cesium.Viewer('cesiumContainer',options);
+  </script>
+
+  <script src="lib/jquery/jquery.2.1.1.min.js"></script>
+  <script src="js/cesium.js"></script>
+  <script src="lib/ocanvas/ocanvas.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
