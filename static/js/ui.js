@@ -80,8 +80,10 @@ var Tools = (function(){
         selfCesium.north();
       }).on('click', '.map-tool-measure', function(){
         var dom = $(this).addClass('active');
+        selfCesium.dbclickTofly_enable = false;
         selfCesium.startMeasure(function(){
           dom.removeClass('active');
+          selfCesium.dbclickTofly_enable = true;
         });
 
       }).on('click', '.location-images-toggle', function(){
@@ -93,6 +95,13 @@ var Tools = (function(){
           that.showLocationImages();
           that.miniMap.goToLarge();
         }
+      }).on('click', '.map-tool-addlabel', function(){
+        
+        var dom = $(this).addClass('active');
+
+        selfCesium.startAddLabel(function(){
+          dom.removeClass('active');
+        });
       });
     },
     showLocationImages: function(){

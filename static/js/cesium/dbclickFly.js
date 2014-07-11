@@ -1,8 +1,11 @@
 ;(function(){
+  cesium.dbclickTofly_enable = true;
   cesium.dbclickTofly = function(){
+
     var fly_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
     var ModelID = fly_handler.setInputAction(
     function (movement) {
+      if(cesium.dbclickTofly_enable){
         var cartesian3 = scene.camera.pickEllipsoid(movement.position, ellipsoid);
         var cameraZcom = scene.camera.position;
         if(cartesian3) {
@@ -20,6 +23,7 @@
           duration: 1000
         });
         scene.animations.add(flight);  
+      }
     },Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
   }
 })();

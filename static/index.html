@@ -57,6 +57,7 @@
   <div class="tools" id="tools">
     <div class="map-tools">
       <div class="map-tool map-tool-location"><span class="icon"></span></div>
+      <div class="map-tool map-tool-addlabel"><span class="icon">T</span></div>
       <div class="map-tool map-tool-measure"><span class="icon"></span></div>
       <div class="map-tool map-tool-settings"><span class="icon"></span></div>
     </div>
@@ -72,6 +73,10 @@
     </div>
   </div>
   <!-- /底部工具 -->
+
+  <!-- addLabel -->
+  <div id="addLabel" style="position:absolute; z-index:10; display:none;"><input id="labelInput" type="text"></div>
+  <!-- /addLabel -->
 
   <script src="lib/Cesium/Cesium.js"></script>
 

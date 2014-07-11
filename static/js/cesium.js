@@ -264,10 +264,13 @@ primitives.add(billboards);
 })();
 
 ;(function(){
+  cesium.dbclickTofly_enable = true;
   cesium.dbclickTofly = function(){
+
     var fly_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
     var ModelID = fly_handler.setInputAction(
     function (movement) {
+      if(cesium.dbclickTofly_enable){
         var cartesian3 = scene.camera.pickEllipsoid(movement.position, ellipsoid);
         var cameraZcom = scene.camera.position;
         if(cartesian3) {
@@ -285,6 +288,7 @@ primitives.add(billboards);
           duration: 1000
         });
         scene.animations.add(flight);  
+      }
     },Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
   }
 })();
@@ -359,6 +363,56 @@ primitives.add(billboards);
       imageryLayers.remove(vector_layer);
     }
   }
+})();
+
+;(function(){
+  // 将事件处理放在外面, 因为这个方法可能会被连续调用两次
+  var handler_rbtn = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+
+  cesium.startAddLabel = function(callback){
+    if(handler_rbtn && !handler_rbtn.isDestroyed()){
+      handler_rbtn.destroy();
+    }
+
+    handler_rbtn = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+    handler_rbtn.setInputAction(function(movement){
+        if(movement.position != null) {
+          var cartesian = scene.camera.pickEllipsoid(movement.position, ellipsoid);
+          if(cartesian) {
+            $("#addLabel").offset({left:movement.position.x,top:movement.position.y});
+            $("#addLabel").show().focus();
+            win.setTimeout(function(){
+              $("#addLabel").focus();
+            }, 100);
+          }
+        }
+      },Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+
+    $("#labelInput").change(function(){
+      var text = $("#labelInput").val();
+      var left = $("#addLabel").offset().left;
+      var top = $("#addLabel").offset().top;
+      var cartesian = scene.camera.pickEllipsoid({x:left,y:top}, ellipsoid);
+      var labelObj ={
+        position:cartesian,
+        value:text
+      }
+      cesium.label.save(labelObj);
+      $("#labelInput").val("");
+      $("#addLabel").hide();
+
+      if(handler_rbtn && !handler_rbtn.isDestroyed()){
+        handler_rbtn.destroy();
+      }
+
+      if(callback){
+        callback();
+      }
+    });
+
+  };
 })();
 
 ;(function(){

@@ -186,6 +186,18 @@ body{
 .map-tool-settings span{
   background-position: -2px -177px;
 }
+.map-tool-addlabel span{
+  font-size: 21px;
+  color: #fff;
+  background-image: none;
+  background-color: #232323;
+  line-height: 26px;
+  text-align: center;
+}
+.map-tool-addlabel:hover span,.map-tool-addlabel.active span{
+  color: #4d90fe;
+  background-color: #232323;
+}
 .location-images{
   clear: both;
 }
@@ -299,7 +311,7 @@ body{
   background-color: #fff;
   font-size: 13px;
   opacity: 0;
-  -webkit-transition: all 0.1s ease;
+  -webkit-transition: all 0.3s ease;
 }
 .location-show.showing{
   top: 60px;
