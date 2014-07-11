@@ -30,4 +30,34 @@
       $("#labelInput").val("");
       $("#addLabel").hide();
    })
+  $(".map-tool-location").click(function(){
+    cesium.north();
+    cesium.setTerrian.set("http://192.168.1.252:8100/terrain/");
+    cesium.setVector.set("http://192.168.1.252:8102/map/google-vector");
+  })
+  $("#miniMapCanvas").click(function(){
+    var miniMapGoogleFlag = $("#miniMapSource").html() =="Google"? true:false;
+    var args={};
+    if(!miniMapGoogleFlag){
+      args = {
+        layers:["http://192.168.1.252:8102/map/bing/"]
+      }
+      $("#miniMapSource").html("Google");
+    }
+    else{
+      args = {
+        layers:["http://192.168.1.252:8102/map/google/"]
+      }
+      $("#miniMapSource").html("Bing");
+    } 
+    cesium.setImagery(args);
+  })
+  $(".map-tool-settings").click(function(){
+    cesium.label.clear();
+    cesium.polyline.clear();
+    cesium.billboard.clear();
+    cesium.setTerrian.remove();
+    cesium.setVector.remove();
+  });
+  cesium.dbclickTofly();
 })()

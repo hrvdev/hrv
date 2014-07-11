@@ -12,9 +12,9 @@
         show : true,
         position : labelObj.position,
         text : labelObj.value,
-        font : '20px 楷体',
-        fillColor : 'gray',
-        outlineColor : 'black',
+        font : '16px 楷体',
+        fillColor : 'white',
+        outlineColor : 'white',
         outlineWidth  : 0.1,
         style : Cesium.LabelStyle.FILL_AND_OUTLINE ,
         pixelOffset : Cesium.Cartesian2.ZERO,
@@ -33,9 +33,8 @@
       save_label.push(save_temp);
     },
     clear:function(){
-      for(var i in save_label){
-        labels.remove(save_label[i]);
-      }
+      save_label.length = 0;
+      labels.removeAll();
     },
     stop:function(){
       var that = this;

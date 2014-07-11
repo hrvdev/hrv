@@ -6,6 +6,8 @@ var primitives = scene.primitives;
 var polylines = new Cesium.PolylineCollection();
 var labels = new Cesium.LabelCollection();
 var billboards = new Cesium.BillboardCollection();
+var centralBody = primitives.centralBody;
+var imageryLayers = centralBody.imageryLayers;
 primitives.add(polylines);
 primitives.add(labels);
 primitives.add(billboards);
@@ -35,9 +37,9 @@ primitives.add(billboards);
       save_billboard.push(save_temp);
     },
     clear:function(){
-      for(var i in save_billboard){
-        save_billboard.remove(save_billboard[i]);
-      }
+
+        save_billboard.length = 0;
+        billboards.removeAll();
     },
     stop:function(){
       var that = this;
@@ -73,7 +75,7 @@ primitives.add(billboards);
         width: 2.0,
         outlineWidth: 2.0,
         color: new Cesium.Color(1.0, 0, 0.0, 1.0),
-        outlineColor: new Cesium.Color(1.0, 1, 1.0, 1.0)
+        outlineColor: new Cesium.Color(1.0, 0, 0.0, 1.0)
       });
       var polyline = polylines.add({
         positions : ellipsoid.cartographicArrayToCartesianArray(points),
@@ -99,9 +101,8 @@ primitives.add(billboards);
       polylines.remove(temp);
     },
     clear:function(){
-      for(var i in save_polyline){
-        polylines.remove(save_polyline[i]);
-      }
+      save_polyline.length = 0;
+      polylines.removeAll();
     }
   }
 })();
@@ -120,9 +121,9 @@ primitives.add(billboards);
         show : true,
         position : labelObj.position,
         text : labelObj.value,
-        font : '20px 楷体',
-        fillColor : 'gray',
-        outlineColor : 'black',
+        font : '16px 楷体',
+        fillColor : 'white',
+        outlineColor : 'white',
         outlineWidth  : 0.1,
         style : Cesium.LabelStyle.FILL_AND_OUTLINE ,
         pixelOffset : Cesium.Cartesian2.ZERO,
@@ -141,14 +142,40 @@ primitives.add(billboards);
       save_label.push(save_temp);
     },
     clear:function(){
-      for(var i in save_label){
-        labels.remove(save_label[i]);
-      }
+      save_label.length = 0;
+      labels.removeAll();
     },
     stop:function(){
       var that = this;
       var temp_last = save_label.pop();
       labels.remove(temp_last);
+    }
+  }
+})();
+
+;(function(){
+  cesium.adjImagery = {
+    set: function(ceisumViewer, options){
+      if (imageryLayers.length > 0) {
+            var layer = imageryLayers.get(0);
+            layer.brightness = options.brightness;
+            layer.contrast = options.contrast;
+            layer.hue = options.hue;
+            layer.saturation = options.saturation;
+            layer.gamma = options.gamma;
+      }
+    },
+    get:function(ceisumViewer){
+      var options = [];
+      if (imageryLayers.length > 0) {
+        var layer = imageryLayers.get(0);
+        options.push(layer.brightness);
+        options.push(layer.contrast);
+        options.push(layer.hue); 
+        options.push(layer.saturation);
+        options.push(layer.gamma);
+      }
+      return options;
     }
   }
 })();
@@ -237,6 +264,32 @@ primitives.add(billboards);
 })();
 
 ;(function(){
+  cesium.dbclickTofly = function(){
+    var fly_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    var ModelID = fly_handler.setInputAction(
+    function (movement) {
+        var cartesian3 = scene.camera.pickEllipsoid(movement.position, ellipsoid);
+        var cameraZcom = scene.camera.position;
+        if(cartesian3) {
+          var cartographic = ellipsoid.cartesianToCartographic(cartesian3);
+          var cartographic2 = ellipsoid.cartesianToCartographic(cameraZcom);
+          var posHeight = cartographic2.height/8;
+          if(posHeight<=5) {
+            posHeight = 5;
+          }
+          cartographic.height=posHeight;
+          goDestination = ellipsoid.cartographicToCartesian(cartographic);
+        }
+        var flight = Cesium.CameraFlightPath.createAnimation(scene, {
+          destination : goDestination,
+          duration: 1000
+        });
+        scene.animations.add(flight);  
+    },Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+  }
+})();
+
+;(function(){
 
   function currentPosition(scene,mousePosition){
     var ellipsoid = Cesium.Ellipsoid.WGS84;
@@ -258,6 +311,54 @@ primitives.add(billboards);
     var position = currentPosition(scene,mousePosition);
     return position;
   };
+})();
+
+;(function(){
+  cesium.north = function(){
+    var camera = scene.camera;
+    scene.camera.heading=0;
+  };
+
+})();
+
+;(function(){
+  cesium.setImagery = function(options){
+    imageryLayers.removeAll();
+    for (var i in options.layers) {
+        imageryLayers.addImageryProvider(new Cesium.OpenStreetMapImageryProvider({
+        url : options.layers[i],
+        maximumLevel:'20',
+      }));
+    }
+  }
+})();
+
+;(function(){
+  cesium.setTerrian = {
+    set:function(url){
+      centralBody.terrainProvider = new Cesium.CesiumTerrainProvider({
+        url : url
+      });
+    },
+    remove:function(){
+      centralBody.terrainProvider = new Cesium.EllipsoidTerrainProvider();
+    }
+  }
+})();
+
+;(function(){
+  cesium.setVector = {
+    set:function(url){
+      imageryLayers.addImageryProvider(new Cesium.OpenStreetMapImageryProvider({
+        url : "http://192.168.1.252:8102/map/google-vector",
+        maximumLevel:'20'
+      }),1);
+    },
+    remove:function(){
+      var vector_layer = centralBody.imageryLayers.get(1);
+      imageryLayers.remove(vector_layer);
+    }
+  }
 })();
 
 ;(function(){
@@ -363,6 +464,36 @@ primitives.add(billboards);
       $("#labelInput").val("");
       $("#addLabel").hide();
    })
+  $(".map-tool-location").click(function(){
+    cesium.north();
+    cesium.setTerrian.set("http://192.168.1.252:8100/terrain/");
+    cesium.setVector.set("http://192.168.1.252:8102/map/google-vector");
+  })
+  $("#miniMapCanvas").click(function(){
+    var miniMapGoogleFlag = $("#miniMapSource").html() =="Google"? true:false;
+    var args={};
+    if(!miniMapGoogleFlag){
+      args = {
+        layers:["http://192.168.1.252:8102/map/bing/"]
+      }
+      $("#miniMapSource").html("Google");
+    }
+    else{
+      args = {
+        layers:["http://192.168.1.252:8102/map/google/"]
+      }
+      $("#miniMapSource").html("Bing");
+    } 
+    cesium.setImagery(args);
+  })
+  $(".map-tool-settings").click(function(){
+    cesium.label.clear();
+    cesium.polyline.clear();
+    cesium.billboard.clear();
+    cesium.setTerrian.remove();
+    cesium.setVector.remove();
+  });
+  cesium.dbclickTofly();
 })()
 
 

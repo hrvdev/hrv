@@ -23,9 +23,9 @@
       save_billboard.push(save_temp);
     },
     clear:function(){
-      for(var i in save_billboard){
-        save_billboard.remove(save_billboard[i]);
-      }
+
+        save_billboard.length = 0;
+        billboards.removeAll();
     },
     stop:function(){
       var that = this;

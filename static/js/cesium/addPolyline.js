@@ -24,7 +24,7 @@
         width: 2.0,
         outlineWidth: 2.0,
         color: new Cesium.Color(1.0, 0, 0.0, 1.0),
-        outlineColor: new Cesium.Color(1.0, 1, 1.0, 1.0)
+        outlineColor: new Cesium.Color(1.0, 0, 0.0, 1.0)
       });
       var polyline = polylines.add({
         positions : ellipsoid.cartographicArrayToCartesianArray(points),
@@ -50,9 +50,8 @@
       polylines.remove(temp);
     },
     clear:function(){
-      for(var i in save_polyline){
-        polylines.remove(save_polyline[i]);
-      }
+      save_polyline.length = 0;
+      polylines.removeAll();
     }
   }
 })();
