@@ -18,4 +18,4 @@
   });
 }
 
-moudle.exports = getImagByPanoId;
+module.exports = getImagByPanoId;

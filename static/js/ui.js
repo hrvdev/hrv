@@ -75,7 +75,16 @@ var Tools = (function(){
 
       var that = this;
 
-      that.toggleLocationImagesBtn.on('click', function(){
+
+      that.dom.on('click', '.map-tool-location', function(){
+        selfCesium.north();
+      }).on('click', '.map-tool-measure', function(){
+        var dom = $(this).addClass('active');
+        selfCesium.startMeasure(function(){
+          dom.removeClass('active');
+        });
+
+      }).on('click', '.location-images-toggle', function(){
         if(that.toggleLocationImagesBtn.hasClass('open')){
           that.hideLocationImages();
           that.locationImagesContainer.hide();
@@ -85,7 +94,6 @@ var Tools = (function(){
           that.miniMap.goToLarge();
         }
       });
-      
     },
     showLocationImages: function(){
       this.dom.addClass('open');

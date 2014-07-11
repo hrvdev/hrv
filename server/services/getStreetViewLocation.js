@@ -21,4 +21,4 @@ function getStreetViewLocation(req, res) {
   });
 }
 
-moudle.exports = getStreetViewLocation;
+module.exports = getStreetViewLocation;

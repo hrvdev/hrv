@@ -1,6 +1,6 @@
 var someAPI = require('./someAPI.js');
 var worldLocation = require('./worldLocation.js');
-var getStreetViewLocation = require('./etStreetViewLocation.js');
+var getStreetViewLocation = require('./getStreetViewLocation.js');
 var getImagByPanoId = require('./getImagByPanoId.js');
 var getJsonByPanoId = require('./getJsonByPanoId.js');
 

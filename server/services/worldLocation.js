@@ -30,4 +30,4 @@ function worldLocation(req, res) {
 
 }
 
-moudle.exports = worldLocation;
+module.exports = worldLocation;

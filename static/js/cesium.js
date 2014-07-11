@@ -362,129 +362,33 @@ primitives.add(billboards);
 })();
 
 ;(function(){
-
-  cesium.convert = {
-    ddTodms: function(dd){
-      // truncate dd to get degrees
-      var deg = parseInt(dd);
-      // get fractional part 
-      var frac = Math.abs(deg -dd); 
-      // multiply fraction by 60 and truncate
-      var min_float = (frac * 60);
-      var min = parseInt(min_float); 
-      var sec = (Math.abs(min_float - min)*60).toFixed(4);
-      var dmsString = deg + "°" + min + "' " + sec + "\"";
-      return dmsString;
-    },
-    dmsTodd:function(dms){
-      var ary = dms.split('.');
-      if(ary && ary.length === 2){
-        var d = window.parseInt(ary[0], 10);
-        var ms = ary[1];
-        var m, s;
-        if(ms.length <= 2){
-          m = window.parseInt(ms);
-          s = 0;
-        } else {
-          m = window.parseInt(ms.substring(0,2));
-          var ss = ms.substring(2);
-          if(ss.length > 2){
-            ss = ss.substring(0,2) + '.' + ss.substring(2);
-          }
-          s = window.parseFloat(ss);
-        }
-        var zf = 1;
-        var absd = Math.abs(d);
-        if(dms.indexOf('-') == 0){
-          zf = -1;
-        }
-        return (absd + m / 60 + s / 3600).toFixed(8) * zf;
-      } else if(ary.length === 1) {
-        return window.parseInt(ary[0]).toFixed(8);
-      } else {
-        return Number.NaN;
-      }
-    }
-  };
-})();
-
-;(function(){
-
-  function currentPosition(scene,mousePosition){
-    var ellipsoid = Cesium.Ellipsoid.WGS84;
-    var pos = {};
-    var cartesian = scene.camera.pickEllipsoid(mousePosition, ellipsoid);
-    if(cartesian) {
-      var cartographic = ellipsoid.cartesianToCartographic(cartesian);
-      pos.ddLong = Cesium.Math.toDegrees(cartographic.longitude);
-      pos.ddLat = Cesium.Math.toDegrees(cartographic.latitude);
-      pos.ddLong = pos.ddLong.toFixed(6);
-      pos.ddLat = pos.ddLat.toFixed(6);
-      pos.dmsLong = cesium.convert.ddTodms(pos.ddLong);
-      pos.dmsLat = cesium.convert.ddTodms(pos.ddLat);
-    }
-    return pos;
-  }
-  cesium.getPosition = function(cesiumViewer,mousePosition){
-    var scene = cesiumViewer.scene;
-    var position = currentPosition(scene,mousePosition);
-    return position;
-  };
-})();
-
-;(function(){
-  function getRad(d){ 
-    return d*Math.PI/180.0; 
-  } 
-  cesium.measureDistence = function(pos){
-    var positions={
-      start:{
-        long:Cesium.Math.toDegrees(pos.start.longitude),
-        lat: Cesium.Math.toDegrees(pos.start.latitude)
-      },
-      end:{
-          long:Cesium.Math.toDegrees(pos.end.longitude),
-          lat: Cesium.Math.toDegrees(pos.end.latitude)
-      }
-    }
-    //单位KM 
-    var EARTH_RADIUS = 6378137.0; 
-    var PI = Math.PI; 
-    var radLat1 = getRad(positions.start.lat); 
-    var radLat2 = getRad(positions.end.lat); 
-    var a = radLat1 - radLat2; 
-    var b = getRad(positions.start.long) - getRad(positions.end.long); 
-    var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2))); 
-    s = s*EARTH_RADIUS; 
-    s = Math.round(s*10000)/10000.0/1000; 
-    return s; 
-  };
-})();
-
-;(function(){
-
-  function someFunction(){
-
-  }
-
-  var someVar;
-
-
-  cesium.someAPI = function(){
-    console.log('someAPI');
-  };
-
-})();
-
-;(function(){
   var points=[];
   var firstPoint_flag = true;
   var current_point,last_Point;
   var sum = 0;
-  cesium.startMeasure = function(){
-    var mov_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-    var left_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-    var db_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+
+  // 将事件处理放在外面, 因为这个方法可能会被连续调用两次
+  var mov_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+  var left_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+  var db_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+
+  cesium.startMeasure = function(callback){
+    if(mov_handler && !mov_handler.isDestroyed()){
+      mov_handler.destroy();
+    }
+    if(left_handler && !left_handler.isDestroyed()){
+      left_handler.destroy();
+    }
+    if(db_handler && !db_handler.isDestroyed()){
+      db_handler.destroy();
+    }
+    mov_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    left_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    db_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    
+
     mov_handler.setInputAction(function(movement){
       if(movement.endPosition != null) {
         var cartesian = scene.camera.pickEllipsoid(movement.endPosition, ellipsoid);
@@ -526,13 +430,22 @@ primitives.add(billboards);
     db_handler.setInputAction(function(){
       firstPoint_flag = true;
       sum = 0;
+
+      mov_handler.destroy();
+      left_handler.destroy();
+      db_handler.destroy();
+
+      if(callback){
+        callback();
+      }
+
       cesium.polyline.stop();
       cesium.label.stop();
     }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
   };
 })();
 
-(function(){
+/*(function(){
   var pos={
     start:{},
     end:{}
@@ -594,7 +507,7 @@ primitives.add(billboards);
     cesium.setVector.remove();
   });
   cesium.dbclickTofly();
-})()
+})()*/
 
 
   win.selfCesium = cesium;

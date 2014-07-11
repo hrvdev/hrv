@@ -3,10 +3,29 @@
   var firstPoint_flag = true;
   var current_point,last_Point;
   var sum = 0;
-  cesium.startMeasure = function(){
-    var mov_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-    var left_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-    var db_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+
+  // 将事件处理放在外面, 因为这个方法可能会被连续调用两次
+  var mov_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+  var left_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+  var db_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+
+  cesium.startMeasure = function(callback){
+    if(mov_handler && !mov_handler.isDestroyed()){
+      mov_handler.destroy();
+    }
+    if(left_handler && !left_handler.isDestroyed()){
+      left_handler.destroy();
+    }
+    if(db_handler && !db_handler.isDestroyed()){
+      db_handler.destroy();
+    }
+    mov_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    left_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    db_handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    
+
     mov_handler.setInputAction(function(movement){
       if(movement.endPosition != null) {
         var cartesian = scene.camera.pickEllipsoid(movement.endPosition, ellipsoid);
@@ -48,6 +67,15 @@
     db_handler.setInputAction(function(){
       firstPoint_flag = true;
       sum = 0;
+
+      mov_handler.destroy();
+      left_handler.destroy();
+      db_handler.destroy();
+
+      if(callback){
+        callback();
+      }
+
       cesium.polyline.stop();
       cesium.label.stop();
     }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);

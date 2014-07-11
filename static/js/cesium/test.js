@@ -1,4 +1,4 @@
-(function(){
+/*(function(){
   var pos={
     start:{},
     end:{}
@@ -60,4 +60,4 @@
     cesium.setVector.remove();
   });
   cesium.dbclickTofly();
-})()
+})()*/
