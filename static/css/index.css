@@ -183,6 +183,12 @@ body{
 .map-tool-measure span{
   background-position: -1px -147px;
 }
+.map-tool-vector span{
+  background-position: -2px -1px;
+}
+.map-tool-terrian span{
+  background-position: -2px -90px;
+}
 .map-tool-settings span{
   background-position: -2px -177px;
 }

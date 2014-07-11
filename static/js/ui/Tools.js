@@ -42,6 +42,24 @@ var Tools = (function(){
         selfCesium.startAddLabel(function(){
           dom.removeClass('active');
         });
+      }).on('click', '.map-tool-vector', function(){
+        var dom = $(this);
+        if(dom.hasClass('active')){
+          dom.removeClass('active');
+          selfCesium.setVector.remove();
+        } else {
+          dom.addClass('active');
+          selfCesium.setVector.set("http://192.168.1.252:8102/map/google-vector");
+        }
+      }).on('click', '.map-tool-terrian', function(){
+        var dom = $(this);
+        if(dom.hasClass('active')){
+          dom.removeClass('active');
+          selfCesium.setTerrian.remove();
+        } else {
+          dom.addClass('active');
+          selfCesium.setTerrian.set("http://192.168.1.252:8100/terrain/");
+        }
       });
     },
     showLocationImages: function(){

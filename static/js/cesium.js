@@ -354,7 +354,7 @@ primitives.add(billboards);
   cesium.setVector = {
     set:function(url){
       imageryLayers.addImageryProvider(new Cesium.OpenStreetMapImageryProvider({
-        url : "http://192.168.1.252:8102/map/google-vector",
+        url : url,
         maximumLevel:'20'
       }),1);
     },
@@ -382,10 +382,7 @@ primitives.add(billboards);
           var cartesian = scene.camera.pickEllipsoid(movement.position, ellipsoid);
           if(cartesian) {
             $("#addLabel").offset({left:movement.position.x,top:movement.position.y});
-            $("#addLabel").show().focus();
-            win.setTimeout(function(){
-              $("#addLabel").focus();
-            }, 100);
+            $("#addLabel").show();
           }
         }
       },Cesium.ScreenSpaceEventType.RIGHT_CLICK);

@@ -2,7 +2,7 @@
   cesium.setVector = {
     set:function(url){
       imageryLayers.addImageryProvider(new Cesium.OpenStreetMapImageryProvider({
-        url : "http://192.168.1.252:8102/map/google-vector",
+        url : url,
         maximumLevel:'20'
       }),1);
     },
