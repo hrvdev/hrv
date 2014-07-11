@@ -28,5 +28,5 @@ for(var key in services){
   app.get('/' + key, services[key]);
 }
 
-app.listen(8080);
-console.log('Server is runing at http://localhost:8080/');
+app.listen(8888);
+console.log('Server is runing at http://localhost:8888/');
