@@ -234,6 +234,8 @@ var MainUI = function(cesium){
   this.miniMap = new MiniMap();
   this.tools = new Tools(this.miniMap);
   this.locationShower = new LocationShower();
+
+  selfCesium.dbclickTofly();
 };
 
 MainUI.prototype = {
