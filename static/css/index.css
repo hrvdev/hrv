@@ -193,8 +193,10 @@ body{
   background-color: #232323;
   line-height: 26px;
   text-align: center;
+  -webkit-user-select: none;
+  cursor: default;
 }
-.map-tool-addlabel:hover span,.map-tool-addlabel.active span{
+.map-tool-addlabel:active span,.map-tool-addlabel.active span{
   color: #4d90fe;
   background-color: #232323;
 }
