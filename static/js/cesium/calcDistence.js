@@ -1,8 +1,14 @@
+/**请使用cartographic坐标
+*var pos={
+*start:cartographic,
+*end:cartographic
+*};
+*/
 ;(function(){
   function getRad(d){ 
     return d*Math.PI/180.0; 
   } 
-  cesium.measureDistence = function(pos){
+  cesium.calcDistence = function(pos){
     var positions={
       start:{
         long:Cesium.Math.toDegrees(pos.start.longitude),
@@ -23,6 +29,7 @@
     var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2))); 
     s = s*EARTH_RADIUS; 
     s = Math.round(s*10000)/10000.0/1000; 
+    // s = parseFloat(s.toFixed(4));
     return s; 
   };
 })();
