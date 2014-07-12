@@ -30,7 +30,7 @@ body{
   
   box-sizing: border-box;
   height: 32px;
-  width: 300px;
+  width: 400px;
   padding: 0 7px;
   position: absolute;
   z-index: 10;
@@ -66,11 +66,11 @@ body{
   border-radius: 0 2px 2px 0;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   height: 32px;
-  left: 299px;
+  left: 399px;
   text-align: center;
   top: -1px;
   vertical-align: top;
-  width: 52px;
+  width: 72px;
   position: absolute;
   z-index: 5;
   text-indent: -9999em;
@@ -94,7 +94,7 @@ body{
   background-size: 17px;
   position: absolute;
   z-index: 6;
-  right: -36px;
+  right: -46px;
   top: 6px;
 }
 .mini-map{
@@ -312,12 +312,12 @@ body{
   position: absolute;
   top: 90px;
   left: 30px;
-  width: 300px;
+  width: 400px;
   height: 60px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 -3px 8px rgba(0,0,0,0.3);
   border-radius: 2px;
   background-color: #fff;
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0;
   -webkit-transition: all 0.3s ease;
 }
@@ -328,7 +328,7 @@ body{
 .location-icon{
   width: 13px;
   height: 20px;
-  background:url(../imgs/reveal-entity-icons.png) no-repeat -49px -67px;
+  background:url(../imgs/reveal-entity-icons.png) no-repeat -27px -67px;
   float: left;
   margin-left: 10px;
   margin-top: 10px;
@@ -337,7 +337,7 @@ body{
   float: left;
   margin-top: 5px;
   margin-left: 5px;
-  width: 237px;
+  width: 337px;
   color: #333;
   line-height: 24px;
 }

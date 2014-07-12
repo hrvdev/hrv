@@ -5,6 +5,8 @@ var MainUI = function(cesium){
   this.tools = new Tools(this.miniMap);
   this.locationShower = new LocationShower();
 
+  this.searchBar = new SearchBar();
+
   selfCesium.dbclickTofly();
 };
 

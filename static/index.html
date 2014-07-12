@@ -23,10 +23,15 @@
   
   <!-- 搜索框 -->
   <div class="search-bar">
-    <input type="text" name="q" id="searchInput" />
+    <input type="text" name="q" id="searchInput" placeholder="请输入地名" />
     <button id="searchButton">搜索</button>
   </div>
   <!-- /搜索框 -->
+
+  <!-- 显示搜索结果 -->
+  <div class="search-result" id="searchResult">
+  </div>
+  <!-- /显示搜索结果 -->
 
 
   <!-- 显示经纬度 -->
@@ -34,8 +39,6 @@
     <div class="location-icon">
     </div>
     <div class="location-lat-lng" id="locationShowC">
-      <div><span>经度: </span><span>12.334</span><span>(12 34' 34'')</span></div>
-      <div><span>纬度: </span><span>12.334</span><span>(12 34' 34'')</span></div>
     </div>
     <div class="location-spliter"></div>
     <div class="location-close">
