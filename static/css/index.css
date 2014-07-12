@@ -116,8 +116,10 @@ body{
   -webkit-transition: all 0.1s linear;
 }
 .mini-map.open{
-  width: 95px;
-  height: 95px;
+  width: 97px;
+  height: 97px;
+  border-color: #232323;
+  left: 20px;
 }
 .mini-map-mask{
   position: absolute;
@@ -274,7 +276,7 @@ body{
 }
 
 .tools.open .location-images-w{
-  height: 140px;
+  height: 130px;
   background-color: rgba(34, 34, 34, 0.95);
 
   border-top: 1px solid #000;
@@ -282,7 +284,7 @@ body{
 .location-images-container{
   margin-left: 140px;
   height: 114px;
-  margin-top: 20px;
+  margin-top: 10px;
   display: none;
   overflow-x: scroll;
 }
