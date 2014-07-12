@@ -109,7 +109,7 @@ var Tools = (function(){
           selfCesium.setVector.remove();
         } else {
           dom.addClass('active');
-          selfCesium.setVector.set("http://192.168.1.252:8102/map/google-vector");
+          selfCesium.setVector.set("http://124.65.135.146:8100/map/google-vector/");
         }
       }).on('click', '.map-tool-terrian', function(){
         var dom = $(this);
@@ -118,7 +118,7 @@ var Tools = (function(){
           selfCesium.setTerrian.remove();
         } else {
           dom.addClass('active');
-          selfCesium.setTerrian.set("http://192.168.1.252:8100/terrain/");
+          selfCesium.setTerrian.set("http://124.65.135.146:8100/terrain/");
         }
       });
     },
