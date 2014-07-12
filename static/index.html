@@ -50,7 +50,7 @@
   
   <!-- 小地图 -->
   <div class="mini-map" id="miniMap">
-    <div class="mini-map-mask" id="miniMapSource">Google</div>
+    <div class="mini-map-mask google" id="miniMapSource">iEarth<i></i></div>
     <div class="mini-map-canvas" id="miniMapCanvas"></div>
   </div>
   <!-- /小地图 -->
@@ -115,11 +115,11 @@
       timeline: false,
       fullscreenElement: document.body,
       baseLayerPicker: false,
-      // imageryProvider: new Cesium.OpenStreetMapImageryProvider({
-      //   url: 'http://192.168.1.252:8102/map/google/',
-      //   maximumLevel: '20',
-      //   credit: ''
-      // }),
+      imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+        url: 'http://124.65.135.146:8100/map/google/',
+        maximumLevel: '20',
+        credit: ''
+      }),
       sceneMode: Cesium.SceneMode.SCENE3D
     }
   }

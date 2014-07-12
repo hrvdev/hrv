@@ -129,6 +129,19 @@ body{
   z-index: 3;
   background-image: -webkit-linear-gradient(top,rgba(255, 255, 255, 0),rgba(0, 0, 0, 0.35));
 }
+.mini-map-mask i{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
+  margin-left: 2px;
+}
+.mini-map-mask.google i{
+  background: url(../imgs/google.jpg) no-repeat;
+}
+.mini-map-mask.bing i{
+  background: url(../imgs/bing.jpg) no-repeat;
+}
 .mini-map-canvas{
   position: absolute;
   top: 0;
