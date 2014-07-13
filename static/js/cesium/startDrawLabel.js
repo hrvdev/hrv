@@ -18,7 +18,7 @@
             $("#addLabel").show();
           }
         }
-      },Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+      },Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
     $("#labelInput").change(function(){
       var text = $("#labelInput").val();

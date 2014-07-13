@@ -13,11 +13,6 @@ var MainUI = function(cesium){
 MainUI.prototype = {
   run: function(){
     var that = this;
-
-    // setTimeout(function(){
-    //   that.miniMap.goToLarge();
-    //   that.tools.showLocationImages();
-    // }, 1000);
     
     that.initShowPosition();
   },

@@ -23,7 +23,7 @@ var SearchBar = (function(){
   SearchBarClass.prototype.doSearch = function(){
     var that = this;
     $.get('/worldLocation', {name: that.input.val()}, function(res){
-
+      
     });
   };
 

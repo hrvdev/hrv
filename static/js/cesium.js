@@ -385,7 +385,7 @@ primitives.add(billboards);
             $("#addLabel").show();
           }
         }
-      },Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+      },Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
     $("#labelInput").change(function(){
       var text = $("#labelInput").val();
@@ -426,6 +426,8 @@ primitives.add(billboards);
 
 
   cesium.startMeasure = function(callback){
+    cesium.clearMeasure();
+
     if(mov_handler && !mov_handler.isDestroyed()){
       mov_handler.destroy();
     }
@@ -479,20 +481,38 @@ primitives.add(billboards);
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
     db_handler.setInputAction(function(){
-      firstPoint_flag = true;
-      sum = 0;
-
-      mov_handler.destroy();
-      left_handler.destroy();
-      db_handler.destroy();
-
+      cesium.stopMeasure();
       if(callback){
         callback();
       }
-
-      cesium.polyline.stop();
-      cesium.label.stop();
     }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+  };
+  
+  cesium.stopMeasure = function(){
+    firstPoint_flag = true;
+    sum = 0;
+
+    if(!mov_handler.isDestroyed()){
+      mov_handler.destroy();
+    }
+
+    if(!left_handler.isDestroyed()){
+      left_handler.destroy();
+    }
+
+    if(!db_handler.isDestroyed()){
+      db_handler.destroy();
+    }
+
+    cesium.polyline.stop();
+    cesium.label.stop();
+  };
+
+  cesium.clearMeasure = function(){
+    
+    cesium.polyline.clear();
+    cesium.label.clear();
+    cesium.billboard.clear();
   };
 })();
 

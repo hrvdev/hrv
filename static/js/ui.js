@@ -97,12 +97,21 @@ var Tools = (function(){
       that.dom.on('click', '.map-tool-location', function(){
         selfCesium.north();
       }).on('click', '.map-tool-measure', function(){
-        var dom = $(this).addClass('active');
-        selfCesium.dbclickTofly_enable = false;
-        selfCesium.startMeasure(function(){
+
+        var dom = $(this);
+        if(dom.hasClass('active')){
           dom.removeClass('active');
+          selfCesium.stopMeasure();
+          selfCesium.clearMeasure();
           selfCesium.dbclickTofly_enable = true;
-        });
+        } else {
+          dom.addClass('active');
+          selfCesium.dbclickTofly_enable = false;
+          selfCesium.startMeasure(function(){
+            dom.removeClass('active');
+            selfCesium.dbclickTofly_enable = true;
+          });
+        }
 
       }).on('click', '.location-images-toggle', function(){
         if(that.toggleLocationImagesBtn.hasClass('open')){
@@ -138,7 +147,7 @@ var Tools = (function(){
           dom.addClass('active');
           selfCesium.setTerrian.set("http://124.65.135.146:8100/terrain/");
         }
-      });
+      }).on('mouse');
     },
     showLocationImages: function(){
       this.dom.addClass('open');
@@ -149,52 +158,32 @@ var Tools = (function(){
       setTimeout(function(){
         that.renderLocationImages([{
           src: 'imgs/1.jpg',
-          title: 'China'
+          title: 'China',
+          location: {
+            lat: 120.2,
+            lng: 30.3
+          }
         }, {
           src: 'imgs/2.jpg',
-          title: 'China'
+          title: 'China',
+          location: {
+            lat: 110.5,
+            lng: 29.3
+          }
         }, {
           src: 'imgs/3.jpg',
-          title: 'China'
+          title: 'China',
+          location: {
+            lat: 115.6,
+            lng: 21.1
+          }
         }, {
           src: 'imgs/4.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/1.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/2.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/3.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/4.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/1.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/2.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/3.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/4.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/1.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/2.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/3.jpg',
-          title: 'China'
-        }, {
-          src: 'imgs/4.jpg',
-          title: 'China'
+          title: 'China',
+          location: {
+            lat: 101.6,
+            lng: 29.5
+          }
         }]);
       }, 200);
       
@@ -208,7 +197,7 @@ var Tools = (function(){
 
       var html = [];
       for(var i = 0; i < images.length; i ++){
-        html.push('<div class="location-image">')
+        html.push('<div class="location-image" data-location="' + JSON.stringify(images[i].location) + '">')
         html.push('<img src="' + images[i].src + '" />');
         html.push('<div>' + images[i].title + '</div>');
         html.push('</div>');
@@ -288,11 +277,6 @@ var MainUI = function(cesium){
 MainUI.prototype = {
   run: function(){
     var that = this;
-
-    // setTimeout(function(){
-    //   that.miniMap.goToLarge();
-    //   that.tools.showLocationImages();
-    // }, 1000);
     
     that.initShowPosition();
   },
@@ -351,7 +335,7 @@ var SearchBar = (function(){
   SearchBarClass.prototype.doSearch = function(){
     var that = this;
     $.get('/worldLocation', {name: that.input.val()}, function(res){
-
+      
     });
   };
 
